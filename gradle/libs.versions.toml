@@ -1,0 +1,24 @@
+[versions]
+mapstruct = "1.5.5.Final"
+lombokMapstructBinding = "0.2.0"
+springBoot = "3.2.5"
+hypersistenceUtilsHibernate = "3.7.3"
+equalsverifier = "3.16.1"
+
+[libraries]
+# Versions without Spring Boot Dependencies
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+lombok-mapstruct-binding = { module = "org.projectlombok:lombok-mapstruct-binding", version.ref = "lombokMapstructBinding" }
+hypersistence-utils-hibernate = { module = "io.hypersistence:hypersistence-utils-hibernate-63", version.ref = "hypersistenceUtilsHibernate" }
+equalsverifier = { module = "nl.jqno.equalsverifier:equalsverifier", version.ref = "equalsverifier" }
+
+# Spring Boot Dependencies
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
+# Needed as constraint in platform
+spring-boot-gradle-plugin = { module = "org.springframework.boot:org.springframework.boot.gradle.plugin", version.ref = "springBoot" }
+
+[bundles]
+
+[plugins]
+spring-boot-gradle-plugin = { id = "org.springframework.boot.gradle.plugin", version.ref = "springBoot" }

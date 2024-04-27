@@ -1,0 +1,34 @@
+name: Main build
+description: Sets up JDKs and runs Gradle
+inputs:
+  arguments:
+    required: true
+    description: Gradle arguments
+    default: build
+  dependency-graph:
+    required: false
+    description: 'see https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#basic-usage'
+    default: disabled
+  enable-test-reporter:
+    required: false
+    description: 'Enable test reporter'
+    default: 'true'
+  test-reporter-job-name:
+    required: false
+    description: 'Name of the test reporter job'
+    default: 'Report test results'
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/setup-jdk-17
+    - uses: ./.github/actions/run-gradle
+      with:
+        arguments: ${{ inputs.arguments }}
+        dependency-graph: ${{ inputs.dependency-graph }}
+    - uses: dorny/test-reporter@v1
+      if: ${{ (success() || failure()) &&  inputs.enable-test-reporter == 'true' }}
+      name: Report test results
+      with:
+        name: ${{ inputs.test-reporter-job-name }}
+        path: '**/build/test-results/test/*.xml'
+        reporter: java-junit

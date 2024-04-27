@@ -1,0 +1,24 @@
+name: Run Gradle
+description: Sets up Gradle JDKs and runs Gradle
+inputs:
+  arguments:
+    required: true
+    description: Gradle arguments
+    default: build
+  dependency-graph:
+    required: false
+    description: 'see https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#basic-usage'
+    default: disabled
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/setup-jdk-17
+      id: setup-gradle-jdk
+    - uses: gradle/actions/setup-gradle@v3
+      env:
+        JAVA_HOME: ${{ steps.setup-gradle-jdk.outputs.path }}
+      with:
+        dependency-graph: ${{ inputs.dependency-graph }}
+        arguments: |
+          -Porg.gradle.java.installations.auto-download=false
+          ${{ inputs.arguments }}

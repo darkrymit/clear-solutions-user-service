@@ -1,0 +1,18 @@
+name: Set up JDK 17
+description: Sets up the JDK 17
+outputs:
+  path:
+    value: ${{ steps.setup-java.outputs.path }}
+    description: 'The path to the JDK 17 installation'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-java@v4
+      name: Set up JDK 17
+      id: setup-java
+      with:
+        distribution: temurin
+        java-version: 17
+    - shell: bash
+      name: Set JDK 17 environment variable
+      run: echo "JDK17=$JAVA_HOME" >> $GITHUB_ENV

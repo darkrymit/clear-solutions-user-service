@@ -1,0 +1,16 @@
+name: clear-solutions-user-service-services
+version: '3.8'
+services:
+  postgresql:
+    extends:
+      file: ./postgresql.yml
+      service: postgresql
+
+  pgadmin:
+    extends:
+      file: ./pgadmin.yml
+      service: pgadmin
+
+volumes:
+  postgresql_data:
+  pgadmin_data:

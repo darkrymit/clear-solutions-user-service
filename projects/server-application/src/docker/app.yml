@@ -1,0 +1,32 @@
+name: clear-solutions-user-service-app
+version: '3.8'
+services:
+  app:
+    image: clear-solutions/user-service:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/user-service
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: dev
+      # https://stackoverflow.com/questions/77023846/how-docker-health-checks-with-spring-boot-native-image
+      THC_PATH: /management/health/readiness
+      THC_PORT: 8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    healthcheck:
+      test: ["CMD", "/cnb/process/health-check"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
+  postgresql:
+    extends:
+      file: ./postgresql.yml
+      service: postgresql
+
+volumes:
+  postgresql_data:
