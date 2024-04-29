@@ -9,8 +9,7 @@ on:
     branches:
       - '*'
 
-permissions:
-  # Required for test-reporter
+permissions: # Required for test-reporter
   contents: read
   actions: read
   checks: write
@@ -39,6 +38,9 @@ jobs:
       - name: Build
         uses: ./.github/actions/main-build
         with:
+          arguments: |
+            -Dapplication.test.containers.disabled=true \
+            build
           test-containers-enabled: false
           test-reporter-job-name: Windows test results
 
@@ -52,5 +54,8 @@ jobs:
       - name: Build
         uses: ./.github/actions/main-build
         with:
+          arguments: |
+            -Dapplication.test.containers.disabled=true \
+            build
           test-containers-enabled: false
           test-reporter-job-name: macOS test results
