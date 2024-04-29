@@ -7,6 +7,14 @@ For more details, please refer to the [task description](task.md).
 
 For more details on design decisions, please refer to the [design decisions](design-decisions.md).
 
+OpenAPI 3.1 specification can be found [here](open-api/user-service.yaml).
+To view the specification, you can use the OpenAPI editor [here](https://editor-next.swagger.io/)
+
+Postman collection can be
+found [here](postman/clear-solutions-user-service.postman_collection.json).
+How to import the collection into Postman can be
+found [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -14,6 +22,8 @@ For more details on design decisions, please refer to the [design decisions](des
     - [How to run](#how-to-run)
 - [Running the tests](#running-the-tests)
     - [Unit and Integration tests](#unit-and-integration-tests)
+    - [Mock data](#mock-data)
+    - [Manual tests](#manual-tests)
 - [Endpoints](#endpoints)
 - [Built With](#built-with)
 
@@ -121,6 +131,18 @@ at [projects/server-application/src/main/resources/db/mock-data/afterMigrate.sql
 
 The Data contains more than 10 users with cyrillic, latin in the name and surname, and different
 email addresses.
+
+### Manual tests
+
+To test the application manually after starting the application, you can use curl or Postman. Since
+data is already inserted into the database, you can test the application by sending requests to the
+endpoints and checking the responses.
+
+You can use the Postman collection provided in the repository to test the application. The
+collection contains requests for creating, updating, and deleting users, as well as searching for
+users by birth date range.
+
+The collection can be found [here](postman/clear-solutions-user-service.postman_collection.json).
 
 ## Endpoints
 
@@ -428,3 +450,5 @@ The project is built using the following technologies:
 - [Testcontainers](https://www.testcontainers.org/) - Integration testing framework
 - [Lombok](https://projectlombok.org/) - Code generation library
 - [MapStruct](https://mapstruct.org/) - Mapping library
+- [OpenAPI](https://swagger.io/specification/) - API specification
+- [Postman](https://www.postman.com/) - API testing tool

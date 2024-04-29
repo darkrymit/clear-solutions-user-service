@@ -1,0 +1,1018 @@
+{
+	"info": {
+		"_postman_id": "f1440ebd-2292-436d-a40f-1e39ad0454fe",
+		"name": "clear-solutions-user-service",
+		"description": "User Service API for Clear Solutions assignment project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21661741"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get a user by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "(Required) User ID"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "A user",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:29:34 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"email\": \"johndoe@gmail.com\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"2002-02-22\",\n    \"address\": \"John Doe address\",\n    \"phoneNumber\": \"+1234567892\",\n    \"createdAt\": \"2024-03-24T22:22:09.266615Z\",\n    \"lastModifiedAt\": \"2024-03-24T22:28:19.266615Z\",\n    \"_links\": {\n        \"self\": {\n            \"href\": \"/users/1\"\n        },\n        \"update\": {\n            \"href\": \"/users/1\"\n        },\n        \"update-partial\": {\n            \"href\": \"/users/1\"\n        },\n        \"delete\": {\n            \"href\": \"/users/1\"\n        }\n    }\n}"
+								},
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1000",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:29:50 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"No such user\",\n    \"status\": 404,\n    \"detail\": \"User with id 1000 not found\",\n    \"instance\": \"/users/1000\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update a user by ID",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "(Required) User ID"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User updated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:42:03 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"email\": \"Catharine.Borer46@gmail.com\",\n    \"firstName\": \"Charity\",\n    \"lastName\": \"Miller\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"1680 Laverne Highway\",\n    \"phoneNumber\": \"+380688633258\",\n    \"createdAt\": \"2024-03-24T22:22:09.266615Z\",\n    \"lastModifiedAt\": \"2024-04-29T14:42:03.250232211Z\",\n    \"_links\": {\n        \"self\": {\n            \"href\": \"/users/1\"\n        },\n        \"update\": {\n            \"href\": \"/users/1\"\n        },\n        \"update-partial\": {\n            \"href\": \"/users/1\"\n        },\n        \"delete\": {\n            \"href\": \"/users/1\"\n        }\n    }\n}"
+								},
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1000",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:42:30 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"No such user\",\n    \"status\": 404,\n    \"detail\": \"User with id 1000 not found\",\n    \"instance\": \"/users/1000\"\n}"
+								},
+								{
+									"name": "Invalid input",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:43:05 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Failed to read request\",\n    \"instance\": \"/users/1\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Partially update a user by ID",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\":\"{{$randomFirstName}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "(Required) User ID"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User updated",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\":\"{{$randomFirstName}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:37:43 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"email\": \"johndoe@gmail.com\",\n    \"firstName\": \"Haylie\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"2002-02-22\",\n    \"address\": \"John Doe address\",\n    \"phoneNumber\": \"+1234567892\",\n    \"createdAt\": \"2024-03-24T22:22:09.266615Z\",\n    \"lastModifiedAt\": \"2024-04-29T14:37:43.115237269Z\",\n    \"_links\": {\n        \"self\": {\n            \"href\": \"/users/1\"\n        },\n        \"update\": {\n            \"href\": \"/users/1\"\n        },\n        \"update-partial\": {\n            \"href\": \"/users/1\"\n        },\n        \"delete\": {\n            \"href\": \"/users/1\"\n        }\n    }\n}"
+								},
+								{
+									"name": "User not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\":\"{{$randomFirstName}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1000",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:40:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"No such user\",\n    \"status\": 404,\n    \"detail\": \"User with id 1000 not found\",\n    \"instance\": \"/users/1000\"\n}"
+								},
+								{
+									"name": "Invalid input",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\":\"!\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1",
+													"description": "(Required) User ID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Apr 2024 14:41:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/users/1\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users?page=0&size=10&sort=id&from=2000-01-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Page number"
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "Page size"
+								},
+								{
+									"key": "sort",
+									"value": "id",
+									"description": "Sort users by field"
+								},
+								{
+									"key": "from",
+									"value": "2000-01-01",
+									"description": "Filter users with birth date from"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "A list of users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?page=0&size=10&sort=id&from=2000-01-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size"
+										},
+										{
+											"key": "sort",
+											"value": "id",
+											"description": "Sort users by field"
+										},
+										{
+											"key": "from",
+											"value": "2000-01-01",
+											"description": "Filter users with birth date from"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Apr 2024 14:34:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_embedded\": {\n        \"users\": [\n            {\n                \"id\": 1,\n                \"email\": \"johndoe@gmail.com\",\n                \"firstName\": \"John\",\n                \"lastName\": \"Doe\",\n                \"birthDate\": \"2002-02-22\",\n                \"address\": \"John Doe address\",\n                \"phoneNumber\": \"+1234567892\",\n                \"createdAt\": \"2024-03-24T22:22:09.266615Z\",\n                \"lastModifiedAt\": \"2024-03-24T22:28:19.266615Z\",\n                \"_links\": {\n                    \"self\": {\n                        \"href\": \"/users/1\"\n                    },\n                    \"update\": {\n                        \"href\": \"/users/1\"\n                    },\n                    \"update-partial\": {\n                        \"href\": \"/users/1\"\n                    },\n                    \"delete\": {\n                        \"href\": \"/users/1\"\n                    }\n                }\n            },\n            {\n                \"id\": 6,\n                \"email\": \"null.user@example.com\",\n                \"firstName\": \"Null\",\n                \"lastName\": \"Nullable\",\n                \"birthDate\": \"2000-01-01\",\n                \"address\": null,\n                \"phoneNumber\": null,\n                \"createdAt\": \"2024-03-29T22:22:09.266615Z\",\n                \"lastModifiedAt\": \"2024-03-29T22:28:19.266615Z\",\n                \"_links\": {\n                    \"self\": {\n                        \"href\": \"/users/6\"\n                    },\n                    \"update\": {\n                        \"href\": \"/users/6\"\n                    },\n                    \"update-partial\": {\n                        \"href\": \"/users/6\"\n                    },\n                    \"delete\": {\n                        \"href\": \"/users/6\"\n                    }\n                }\n            },\n            {\n                \"id\": 11,\n                \"email\": \"john.doe.jr@example.com\",\n                \"firstName\": \"John.Doe\",\n                \"lastName\": \"Jr\",\n                \"birthDate\": \"2000-01-01\",\n                \"address\": \"123 Main St\",\n                \"phoneNumber\": \"+1234567890\",\n                \"createdAt\": \"2024-04-03T22:22:09.266615Z\",\n                \"lastModifiedAt\": \"2024-04-03T22:28:19.266615Z\",\n                \"_links\": {\n                    \"self\": {\n                        \"href\": \"/users/11\"\n                    },\n                    \"update\": {\n                        \"href\": \"/users/11\"\n                    },\n                    \"update-partial\": {\n                        \"href\": \"/users/11\"\n                    },\n                    \"delete\": {\n                        \"href\": \"/users/11\"\n                    }\n                }\n            }\n        ]\n    },\n    \"_links\": {\n        \"self\": {\n            \"href\": \"/users?page=0&size=10&sort=id,ASC\"\n        }\n    },\n    \"page\": {\n        \"size\": 10,\n        \"totalElements\": 3,\n        \"totalPages\": 1,\n        \"number\": 0\n    }\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?page=0&size=10&sort=id&from=2000-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size"
+										},
+										{
+											"key": "sort",
+											"value": "id",
+											"description": "Sort users by field"
+										},
+										{
+											"key": "from",
+											"value": "2000-01",
+											"description": "Filter users with birth date from"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Apr 2024 14:35:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/users\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Location",
+									"value": "/users/13"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Apr 2024 14:36:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 13,\n    \"email\": \"Alejandrin98@gmail.com\",\n    \"firstName\": \"Kitty\",\n    \"lastName\": \"Connelly\",\n    \"birthDate\": \"2002-02-02\",\n    \"address\": \"9144 Hilll Junction\",\n    \"phoneNumber\": \"+380688633258\",\n    \"createdAt\": \"2024-04-29T14:36:38.219672488Z\",\n    \"lastModifiedAt\": \"2024-04-29T14:36:38.219672488Z\",\n    \"_links\": {\n        \"self\": {\n            \"href\": \"/users/13\"\n        },\n        \"update\": {\n            \"href\": \"/users/13\"\n        },\n        \"update-partial\": {\n            \"href\": \"/users/13\"\n        },\n        \"delete\": {\n            \"href\": \"/users/13\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"birthDate\": \"2002-02\",\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"phoneNumber\": \"+380688633258\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Apr 2024 14:36:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Failed to read request\",\n    \"instance\": \"/users\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "8080"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:{{port}}"
+		}
+	]
+}

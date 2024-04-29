@@ -1,0 +1,494 @@
+openapi: 3.1.0
+info:
+  title: Clear Solutions User Service API
+  description: User Service API for Clear Solutions assignment project
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:{port}'
+    description: Local server
+    variables:
+      port:
+        default: '8080'
+        description: port number
+paths:
+
+  /users:
+    get:
+      summary: Get all users
+      operationId: getAllUsers
+      tags:
+        - users
+      parameters:
+        - name: from
+          in: query
+          description: Filter users with birth date from
+          required: false
+          schema:
+              $ref: '#/components/schemas/LocalDate'
+        - name: to
+          in: query
+          description: Filter users with birth date to
+          required: false
+          schema:
+              $ref: '#/components/schemas/LocalDate'
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          description: Page size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 10
+        - name: sort
+          in: query
+          description: Sort users by field
+          required: false
+          schema:
+            type: string
+            enum:
+              - id
+              - email
+              - lastName
+              - firstName
+              - birthDate
+              - address
+              - phoneNumber
+              - createdAt
+              - lastModifiedAt
+            default: id
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageOfUsers'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PageOfUsers'
+        '400':
+          description: Invalid input
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+
+  /users/{id}:
+    get:
+      summary: Get a user by ID
+      operationId: getUserById
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+
+    put:
+      summary: Update a user by ID
+      operationId: updateUserById
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+
+    patch:
+      summary: Partially update a user by ID
+      operationId: partialUpdateUserById
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPartialUpdateRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: User not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+
+components:
+  schemas:
+    Id:
+      type: integer
+      format: int64
+      examples:
+        - 1
+        - 2
+        - 3
+
+    Email:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$
+      examples:
+        - t64566t@gmail.com
+        - dpo.prots@gmail.com
+
+    PhoneNumber:
+      type: string
+      minLength: 1
+      maxLength: 15
+      pattern: ^\+[1-9]\d{1,14}$
+      examples:
+        - +380501234567
+        - +380501234568
+
+    Address:
+      type: string
+      minLength: 1
+      maxLength: 255
+      examples:
+        - 1, Shevchenko street, Kyiv, Ukraine
+        - 2, Shevchenko street, Kyiv, Ukraine
+
+    LastName:
+      type: string
+      minLength: 1
+      maxLength: 50
+      examples:
+        - Winchester
+        - MacLeod
+
+    FirstName:
+      type: string
+      minLength: 1
+      maxLength: 50
+      examples:
+        - Dean
+        - Sam
+        - Fergus
+
+    LocalDate:
+      type: string
+      format: date
+      examples:
+        - 2022-12-31
+        - 2023-01-01
+
+    Instant:
+      type: string
+      format: date-time
+      examples:
+        - 2021-10-10T10:10:10.000Z
+        - 2021-10-10T10:10:10.000Z
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        email:
+          $ref: '#/components/schemas/Email'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        birthDate:
+          $ref: '#/components/schemas/LocalDate'
+        address:
+          $ref: '#/components/schemas/Address'
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+        createdAt:
+          $ref: '#/components/schemas/Instant'
+        lastModifiedAt:
+          $ref: '#/components/schemas/Instant'
+      required:
+        - id
+        - email
+        - lastName
+        - firstName
+        - createdAt
+        - lastModifiedAt
+
+    UserCreateRequest:
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        birthDate:
+          $ref: '#/components/schemas/LocalDate'
+        address:
+          $ref: '#/components/schemas/Address'
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+      required:
+        - email
+        - lastName
+        - firstName
+        - birthDate
+        - address
+        - phoneNumber
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        birthDate:
+          $ref: '#/components/schemas/LocalDate'
+        address:
+          $ref: '#/components/schemas/Address'
+          type:
+            - "string"
+            - "null"
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+          type:
+            - "string"
+            - "null"
+
+      required:
+        - email
+        - lastName
+        - firstName
+        - birthDate
+        - address
+        - phoneNumber
+
+    UserPartialUpdateRequest:
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        birthDate:
+          $ref: '#/components/schemas/LocalDate'
+        address:
+          $ref: '#/components/schemas/Address'
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+
+    PageOfUsers:
+      allOf:
+        - $ref: '#/components/schemas/Page'
+        - type: object
+          properties:
+            _embedded:
+              type: object
+              properties:
+                users:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+
+
+    Page:
+      type: object
+      properties:
+        _embedded:
+          type: array
+        _links:
+          type: object
+          patternProperties:
+            "^[a-z0-9]+$":
+              type: object
+              properties:
+                href:
+                  type: string
+                  examples:
+                    - /users/1
+                    - /users/2
+                    - /users/3
+          minProperties: 1
+        page:
+          type: object
+          properties:
+            size:
+              type: integer
+              format: int32
+              examples:
+                - 10
+                - 20
+            totalElements:
+              type: integer
+              format: int64
+              examples:
+                - 100
+                - 200
+            totalPages:
+              type: integer
+              format: int32
+              examples:
+                - 10
+                - 20
+            number:
+              type: integer
+              format: int32
+              examples:
+                - 1
+                - 2
+          required:
+            - size
+            - totalElements
+            - totalPages
+            - number
+      required:
+        - _embedded
+        - _links
+        - page
+    #    According to RFC 7807
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          examples:
+            - https://example.com/probs/out-of-credit
+            - https://example.com/probs/insufficient-space
+        title:
+          type: string
+          examples:
+            - Out of credit
+            - Insufficient space for resource
+        status:
+          type: integer
+          format: int32
+          examples:
+            - 403
+            - 507
+        detail:
+          type: string
+          examples:
+            - You do not have enough credit.
+            - Only 20MB available.
+        instance:
+          type: string
+          examples:
+            - /account/12345/msgs/abc
+            - /account/12345/msgs/abc/attachments/1
+      required:
+        - type
+        - title
+        - status
+        - detail
+        - instance
