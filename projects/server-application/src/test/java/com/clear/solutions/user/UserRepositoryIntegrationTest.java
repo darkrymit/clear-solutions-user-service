@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.clear.solutions.testspecific.JpaLevelTest;
+import com.clear.solutions.testspecific.RepositoryLevelIntegrationTest;
 import com.clear.solutions.user.exception.NoSuchUserByIdException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
-@JpaLevelTest
+@RepositoryLevelIntegrationTest
 @Sql(scripts = {"classpath:sql/users.sql"})
 class UserRepositoryIntegrationTest {
 

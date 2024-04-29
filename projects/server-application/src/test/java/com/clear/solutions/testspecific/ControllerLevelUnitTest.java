@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @Target(ElementType.TYPE)
@@ -27,7 +26,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @WebMvcTest(properties = "spring.mvc.problem-details.enabled=true")
 @Import({GeneralControllerExceptionHandler.class, HateoasConfiguration.class})
 @ImportAutoConfiguration
-@ActiveProfiles("test")
 public @interface ControllerLevelUnitTest {
 
   @AliasFor(attribute = "controllers", annotation = WebMvcTest.class) Class<?>[] controllers() default {};

@@ -9,6 +9,10 @@ inputs:
     required: false
     description: 'see https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#basic-usage'
     default: disabled
+  test-containers-enabled:
+    required: false
+    description: 'Is test containers enabled in environment'
+    default: 'true'
   enable-test-reporter:
     required: false
     description: 'Enable test reporter'
@@ -22,9 +26,11 @@ runs:
   steps:
     - uses: ./.github/actions/setup-jdk-17
     - uses: ./.github/actions/run-gradle
-      with:
-        arguments: ${{ inputs.arguments }}
-        dependency-graph: ${{ inputs.dependency-graph }}
+      with: # Add -Dapplication.test.containers.disabled=true to disable test containers if needed
+        arguments: |
+          ${{ inputs.test-containers-enabled == 'true' && '-Dapplication.test.containers.disabled=true' || '' }} \
+          ${{ inputs.arguments }}
+      dependency-graph: ${{ inputs.dependency-graph }}
     - uses: dorny/test-reporter@v1
       if: ${{ (success() || failure()) &&  inputs.enable-test-reporter == 'true' }}
       name: Report test results

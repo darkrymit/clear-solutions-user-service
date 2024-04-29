@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @Target(ElementType.TYPE)
@@ -28,7 +27,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ImportAutoConfiguration
 @AutoConfigureTestDatabaseContainer
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@DisabledIfContainersDisabled
 public @interface ControllerLevelIntegrationTest {
 
 }

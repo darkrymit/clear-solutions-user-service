@@ -32,6 +32,15 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
 
 }
 
+// pass application.test properties to JavaExec task
+tasks.test {
+    System.getProperties().forEach { (k, v) ->
+        if (k.toString().startsWith("application.test")) {
+            systemProperties[k.toString()] = v
+        }
+    }
+}
+
 dependencies {
 
     // Since most of the common dependencies are already applied by plugin
