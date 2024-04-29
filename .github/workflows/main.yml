@@ -38,9 +38,7 @@ jobs:
       - name: Build
         uses: ./.github/actions/main-build
         with:
-          arguments: |
-            -Dapplication.test.containers.disabled=true \
-            build
+          arguments: -Dapplication.test.containers.disabled=true build
           test-containers-enabled: false
           test-reporter-job-name: Windows test results
 
@@ -54,8 +52,6 @@ jobs:
       - name: Build
         uses: ./.github/actions/main-build
         with:
-          arguments: |
-            -Dapplication.test.containers.disabled=true \
-            build
+          arguments: -Dapplication.test.containers.disabled=true build
           test-containers-enabled: false
           test-reporter-job-name: macOS test results
