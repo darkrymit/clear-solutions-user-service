@@ -31,7 +31,7 @@ class UserRepositoryIntegrationTest {
         "Address", "1234567890", null, null);
 
     // when
-    User savedUser = userRepository.save(userToSave);
+    User savedUser = userRepository.saveAndFlush(userToSave);
 
     // then
     assertNotNull(savedUser);
@@ -53,7 +53,7 @@ class UserRepositoryIntegrationTest {
         "1234567890", null, null);
 
     // when & then
-    assertThrows(DataIntegrityViolationException.class, () -> userRepository.save(userToSave));
+    assertThrows(DataIntegrityViolationException.class, () -> userRepository.saveAndFlush(userToSave));
   }
 
   @Test
@@ -84,7 +84,7 @@ class UserRepositoryIntegrationTest {
     userToUpdate.setFirstName("Jane");
 
     // when
-    User updatedUser = userRepository.save(userToUpdate);
+    User updatedUser = userRepository.saveAndFlush(userToUpdate);
 
     // then
     assertEquals(userToUpdate.getId(), updatedUser.getId());
@@ -105,7 +105,7 @@ class UserRepositoryIntegrationTest {
     userToUpdate.setPhoneNumber("1234567890");
 
     // when
-    User updatedUser = userRepository.save(userToUpdate);
+    User updatedUser = userRepository.saveAndFlush(userToUpdate);
 
     // then
     assertEquals(userToUpdate.getId(), updatedUser.getId());
