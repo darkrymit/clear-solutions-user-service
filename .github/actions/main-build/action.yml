@@ -28,7 +28,7 @@ runs:
     - uses: ./.github/actions/run-gradle
       with: # Add -Dapplication.test.containers.disabled=true to disable test containers if needed
         arguments: |
-          ${{ inputs.test-containers-enabled == 'true' && '-Dapplication.test.containers.disabled=true' || '' }} \
+         "${{ inputs.test-containers-enabled == 'true' && '-Dapplication.test.containers.disabled=true' || '' }}" \
           ${{ inputs.arguments }}
         dependency-graph: ${{ inputs.dependency-graph }}
     - uses: dorny/test-reporter@v1
