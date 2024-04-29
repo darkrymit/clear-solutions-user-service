@@ -87,13 +87,8 @@ public class UserService {
     user.setFirstName(request.getFirstName());
     user.setLastName(request.getLastName());
     user.setBirthDate(request.getBirthDate());
-
-    if (request.getAddress() != null) {
-      user.setAddress(request.getAddress());
-    }
-    if (request.getPhoneNumber() != null) {
-      user.setPhoneNumber(request.getPhoneNumber());
-    }
+    user.setAddress(request.getAddress());
+    user.setPhoneNumber(request.getPhoneNumber());
 
     var updatedUser = userRepository.saveAndFlush(user);
 
