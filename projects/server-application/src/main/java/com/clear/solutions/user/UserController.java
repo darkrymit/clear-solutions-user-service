@@ -24,13 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/users", produces = "application/json")
+@RequestMapping(path = "/users", produces = {"application/hal+json", "application/json",
+    "application/problem+json"})
 @Validated
 public class UserController {
 
   private final UserService userService;
 
-  @PostMapping
+  @PostMapping(consumes = "application/json")
   public ResponseEntity<UserResponse> create(@Valid @RequestBody UserCreateRequest request) {
     var response = userService.create(request);
     return ResponseEntity.created(response.getRequiredLink("self").toUri()).body(response);
@@ -41,13 +42,13 @@ public class UserController {
     return ResponseEntity.ok(userService.getById(id));
   }
 
-  @PatchMapping("/{id}")
+  @PatchMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<UserResponse> update(@PathVariable Long id,
       @Valid @RequestBody UserPartialUpdateRequest request) {
     return ResponseEntity.ok(userService.update(id, request));
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<UserResponse> update(@PathVariable Long id,
       @Valid @RequestBody UserUpdateRequest request) {
     return ResponseEntity.ok(userService.update(id, request));
