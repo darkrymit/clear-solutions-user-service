@@ -1,7 +1,10 @@
 package com.clear.solutions.user;
 
 import static com.clear.solutions.testspecific.hamcrest.TemporalStringMatchers.instantComparesEqualTo;
+import static org.hamcrest.Matchers.blankOrNullString;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
@@ -81,6 +84,23 @@ class UserControllerUnitTest {
         .andExpect(jsonPath("$._links.update-all-fields.href", is("/users/1")))
         .andExpect(jsonPath("$._links.update-some-fields.href", is("/users/1")))
         .andExpect(jsonPath("$._links.delete.href", is("/users/1")));
+  }
+
+  @Test
+  void shouldErrorResponseWhenCreatingUserWithInvalidAge() throws Exception {
+    // given
+    var request = new UserCreateRequest("johndoe@gmail.com", "John", "Doe",
+        LocalDate.of(2008, 5, 20), "New address", "+1234567890");
+
+    mockMvc.perform(post("/users").contentType("application/json").content(
+            objectMapper.writeValueAsString(request))).andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.status", is(400)))
+        .andExpect(jsonPath("$.title", is("Bad Request")))
+        .andExpect(jsonPath("$.instance", is("/users")))
+        .andExpect(jsonPath("$.detail", containsString("Validation failed")))
+        .andExpect(jsonPath("$.errors[0].object", is("userCreateRequest")))
+        .andExpect(jsonPath("$.errors[0].field", is("birthDate")))
+        .andExpect(jsonPath("$.errors[0].message", containsString("18")));
   }
 
   @Test
@@ -294,5 +314,19 @@ class UserControllerUnitTest {
             jsonPath("$._embedded.users[0].lastModifiedAt",
                 instantComparesEqualTo(response.getLastModifiedAt())))
         .andExpect(jsonPath("$._embedded.users[0]._links.self.href", is("/users/1")));
+  }
+
+  @Test
+  void shouldReturnErrorResponseWhenGetUsersByBirthDateRangeAndInvalidRange() throws Exception {
+
+    mockMvc.perform(get("/users").contentType("application/json").param("from", "2005-05-20")
+            .param("to", "2003-05-20")).andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.status", is(400)))
+        .andExpect(jsonPath("$.title", is("Bad Request")))
+        .andExpect(jsonPath("$.instance", is("/users")))
+        .andExpect(jsonPath("$.detail", containsString("Validation failed")))
+        .andExpect(jsonPath("$.errors[0].object", is("rangeLocalDateCriteria")))
+        .andExpect(
+            jsonPath("$.errors[0].message", not(blankOrNullString())));
   }
 }
