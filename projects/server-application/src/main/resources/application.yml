@@ -17,6 +17,7 @@ spring:
       hibernate:
         check_nullability: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
 
 
 application:
