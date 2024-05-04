@@ -8,16 +8,17 @@ import com.clear.solutions.payload.user.UserUpdateRequest;
 import com.clear.solutions.shared.PageMapper;
 import com.clear.solutions.user.exception.NoSuchUserByIdException;
 import com.clear.solutions.user.exception.UserAlreadyExistsByEmailException;
-import jakarta.transaction.Transactional;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
 
   private final UserRepository userRepository;
