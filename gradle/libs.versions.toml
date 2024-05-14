@@ -15,10 +15,8 @@ equalsverifier = { module = "nl.jqno.equalsverifier:equalsverifier", version.ref
 
 # Spring Boot Dependencies
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
-# Needed as constraint in platform
 spring-boot-gradle-plugin = { module = "org.springframework.boot:org.springframework.boot.gradle.plugin", version.ref = "springBoot" }
 
 [bundles]
 
 [plugins]
-spring-boot-gradle-plugin = { id = "org.springframework.boot.gradle.plugin", version.ref = "springBoot" }

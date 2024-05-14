@@ -10,7 +10,6 @@ dependencies {
     api(platform(libs.spring.boot.dependencies))
 
     constraints {
-        api(libs.spring.boot.gradle.plugin)
         api(libs.hypersistence.utils.hibernate)
         api(libs.mapstruct)
         api(libs.mapstruct.processor)
